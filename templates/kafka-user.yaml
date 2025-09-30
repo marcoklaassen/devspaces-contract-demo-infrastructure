@@ -1,0 +1,38 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: kafka-developer
+  labels:
+    strimzi.io/cluster: kafka
+spec:
+  authentication:
+    type: tls
+  authorization:
+    type: simple
+    acls:
+      # Example consumer Acls for topic contract using consumer group contract-backend
+      - resource:
+          type: topic
+          name: contract
+          patternType: literal
+        operations:
+          - Describe
+          - Read
+        host: "*"
+      - resource:
+          type: group
+          name: contract-backend
+          patternType: literal
+        operations:
+          - Read
+        host: "*"
+      # Example Producer Acls for topic contract
+      - resource:
+          type: topic
+          name: contract
+          patternType: literal
+        operations:
+          - Create
+          - Describe
+          - Write
+        host: "*"
