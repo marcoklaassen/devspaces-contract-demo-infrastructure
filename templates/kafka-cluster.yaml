@@ -43,7 +43,6 @@ metadata:
 spec:
   kafka:
     version: 4.2.0
-    metadataVersion: 4.0-IV3
     authorization:
       type: simple
     listeners:
